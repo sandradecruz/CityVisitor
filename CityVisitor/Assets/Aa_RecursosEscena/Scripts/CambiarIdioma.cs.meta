@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a78f380603506794db8955315f41c661
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - textoEsp: {instanceID: 0}
+  - textoEng: {instanceID: 0}
+  - textoEspMenu: {instanceID: 0}
+  - textoEngMenu: {instanceID: 0}
+  - imagenBoton: {instanceID: 0}
+  - banderaEsp: {fileID: 21300000, guid: 21dc382f4d0324c48bf0404e12f32122, type: 3}
+  - banderaEng: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
