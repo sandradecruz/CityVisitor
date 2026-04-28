@@ -1,8 +1,8 @@
 # 🏙️ CityVisitor - Unity VR XR 
 
-**CityVisitor** es nuestro **Trabajo de Fin de Grado (TFG)**: una experiencia en **Realidad Virtual** desarrollada con **Unity** usando **XR (Unity XR / XR Interaction Toolkit)** que permite **visitar distintas ciudades** y descubrir sus **monumentos más característicos** acompañados de una **explicación informativa**.
+**CityVisitor** es nuestro **Trabajo de Fin de Ciclo**: una experiencia en **Realidad Virtual** desarrollada con **Unity** usando **XR (Unity XR / XR Interaction Toolkit)** que permite **visitar distintas ciudades** y descubrir sus **monumentos más característicos** acompañados de una **explicación informativa** aportada por los compañeros de Turismo.
 
-Actualmente incluye ciudades como **Valladolid** y **Salamanca** (Aunque Salamanca no consta de ningún monumento).
+Actualmente incluye ciudades como **Valladolid** y **Salamanca** (Aunque Salamanca no consta de ningún monumento todavia).
 
 ---
 
@@ -70,8 +70,8 @@ Monumentos y puntos de interés incluidos en el recorrido:
 
 - [ ] Añadir rutas guiadas
 - [ ] Mejorar UI/UX de las explicaciones (audio + subtítulos, accesibilidad)
-- [ ] Optimización de rendimiento para VR (LOD, baked lighting, occlusion, etc.)
-- [ ] Menú de selección de ciudad y progreso/coleccionables (si aplica)
+- [ ] Optimización de rendimiento para VR
+- [ ] Menú de selección de ciudad y coleccionables
 
 ---
 
