@@ -1,77 +1,87 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
 
 public class GameController : MonoBehaviour
 {
+    [Header("Interfaz Visual")]
     public GameObject pauseMenu;
 
     [Space(10)]
-    [Header("Configuración VR")]
-    public InputActionProperty botonMenuDerecho;
-
+    [Header("Configuración VR (Usar botón menú mando Izquierdo)")]
+    public InputActionProperty botonMenuVR;
 
     void Start()
     {
-        pauseMenu.SetActive(false);
+        // El menú empieza oculto al arrancar el juego
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(false);
+        }
     }
 
     private void OnEnable()
     {
-        botonMenuDerecho.action.Enable();
-        botonMenuDerecho.action.performed += _ => abrirMenu();
+        // Activamos la acción y nos suscribimos de forma limpia al evento de pulsación
+        botonMenuVR.action.Enable();
+        botonMenuVR.action.performed += OnMenuButtonPressed;
     }
 
     private void OnDisable()
     {
-        botonMenuDerecho.action.performed -= _ => abrirMenu();
-        botonMenuDerecho.action.Disable();
+        // Cancelamos la suscripción de forma segura para evitar errores en Unity
+        botonMenuVR.action.performed -= OnMenuButtonPressed;
+        botonMenuVR.action.Disable();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //Cuando pulsemos el boton escape, abrimos el menu de pausa 
+        // Mantener la compatibilidad con el teclado del PC (Tecla Escape)
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            pauseMenu.SetActive(!pauseMenu.activeSelf);
-            //Si el menu de pausa esta activo, pausamos el juego
-            if (pauseMenu.activeSelf)
-            {
-                Time.timeScale = 0f;
-            }
-            else
-            {
-                Time.timeScale = 1f;
-            }
+            abrirMenu();
         }
     }
-    public void abrirMenu()
+
+    // Este método escucha el evento del Input System de las gafas VR
+    private void OnMenuButtonPressed(InputAction.CallbackContext context)
     {
-            pauseMenu.SetActive(!pauseMenu.activeSelf);
-            //Si el menu de pausa esta activo, pausamos el juego
-            if (pauseMenu.activeSelf)
-            {
-                Time.timeScale = 0f;
-            }
-            else
-            {
-                Time.timeScale = 1f;
-            }
-        
+        abrirMenu();
     }
 
+    // Tu función principal que alterna el estado del menú y pausa el tiempo
+    public void abrirMenu()
+    {
+        if (pauseMenu == null) return;
+
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+
+        // Si el menú de pausa está activo, congelamos el juego (TimeScale = 0)
+        if (pauseMenu.activeSelf)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
+
+    // Funciones para cambiar de escena
     public void CambiarValladolid()
     {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("SceneValladolid");
+        Time.timeScale = 1f; // Asegura que el tiempo vuelva a la normalidad al cambiar de mapa
+        UnityEngine.SceneManagement.SceneManager.LoadScene("SceneValladolid");
     }
 
     public void CambiarSalamanca()
     {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("SceneSalamanca");
+        Time.timeScale = 1f;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("SceneSalamanca");
     }
 
     public void CambiarMenu()
     {
+        Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Escena_MenuPrincipal");
     }
 }

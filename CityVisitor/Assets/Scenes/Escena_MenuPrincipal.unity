@@ -2521,18 +2521,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 673994727}
-  botonMenuDerecho:
+  botonMenuVR:
     m_UseReference: 1
     m_Action:
-      m_Name: Boton Menu Derecho
+      m_Name: Boton Menu VR
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: cb2cabe3-2d6b-41a6-b826-8ce287b975c1
+      m_Id: b2728e3c-5a01-476f-91af-d0b57636bfd5
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 4116954447336496447, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
+    m_Reference: {fileID: -97591560660934089, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &1157187327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,7 +3297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 786.1554}
+  m_AnchoredPosition: {x: 0, y: 786.15564}
   m_SizeDelta: {x: -1.0292, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1605654955
@@ -3562,8 +3562,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 431292984}
   m_HandleRect: {fileID: 431292983}
   m_Direction: 2
-  m_Value: -0.00000003881876
-  m_Size: 0.20261605
+  m_Value: -0.00000027173135
+  m_Size: 0.2028078
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3930,6 +3930,22 @@ PrefabInstance:
       propertyPath: m_RayInteractorChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4268084408848031359, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
+      propertyPath: m_TrackingType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7873524511577998750, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7873524511577998750, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7873524511577998750, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8141607097397530710, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
       propertyPath: m_UIHoverExited.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -4030,8 +4046,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    - target: {fileID: 9016074819961101632, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
+      propertyPath: m_RequestedTrackingOriginMode
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4268084408848031359, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 7790410884965640703, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7873524511577998750, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
       insertIndex: -1
@@ -4040,12 +4062,33 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7873524511577998749, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1121066037}
+    - targetCorrespondingSourceObject: {fileID: 7873524511577998749, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2134761127}
   m_SourcePrefab: {fileID: 100100000, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
 --- !u!20 &2134761126 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 7873524511577998747, guid: eefb1a87e1ca3df4b95c4f765c959986, type: 3}
   m_PrefabInstance: {fileID: 2134761125}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2134761127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121066032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Device: 0
+  m_PoseSource: 2
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_UseRelativeTransform: 0
 --- !u!1 &2141547900
 GameObject:
   m_ObjectHideFlags: 0
