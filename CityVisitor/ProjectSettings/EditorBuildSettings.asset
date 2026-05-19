@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SceneSalamanca.unity
     guid: 2e97759c46a430143b97e96c175537f6
   - enabled: 1
-    path: Assets/Scenes/SceneValladolid.unity
+    path: Assets/Scenes/SceneValladolid_Viejo.unity
     guid: 01de25b281273a84ebe7fdb6b8529900
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

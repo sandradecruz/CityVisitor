@@ -12,7 +12,7 @@ public class DetectorProximidad : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // Comprobamos si lo que entró es el jugador (el XR Origin o la cámara)
-        if (other.CompareTag("XR rig") || other.gameObject.name.Contains("XR Origin"))
+        if (other.CompareTag("XR Origin (XR Rig) Variant") || other.gameObject.name.Contains("XR Origin"))
         {
             panelUI.SetActive(true);
         }
