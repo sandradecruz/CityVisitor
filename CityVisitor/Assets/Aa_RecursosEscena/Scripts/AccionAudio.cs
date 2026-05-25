@@ -2,19 +2,30 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+// Esto asegura que el GameObject tenga un AudioSource y evita errores
+[RequireComponent(typeof(AudioSource))]
 public class AccionAudio : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [Header("Configuración de la Barra de Carga")]
+    [Header("Configuracion de la Barra de Carga")]
     public Image barraDeCarga;
     public GameObject canvasDialogo;
 
-    [Header("Configuración de Audio")]
+    [Header("Configuracion de Audio")]
     public AudioClip vozEspanol;
     public AudioClip vozIngles;
 
     private float tiempoRequerido = 0.5f;
     private float tiempoActual = 0f;
     private bool estaPulsando = false;
+
+    // Referencia privada al componente de audio del objeto
+    private AudioSource miAudioSource;
+
+    void Awake()
+    {
+        // Obtenemos el componente AudioSource al iniciar
+        miAudioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -57,16 +68,27 @@ public class AccionAudio : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             canvasDialogo.SetActive(true);
         }
-
-        // 2. Comprobamos idioma
-        int idioma = PlayerPrefs.GetInt("IdiomaSeleccionado", 0);
-        AudioClip clipA_Reproducir = (idioma == 0) ? vozEspanol : vozIngles;
-
-        Debug.Log("Idioma: " + idioma + " | Reproduciendo de forma independiente: " + (clipA_Reproducir != null ? clipA_Reproducir.name : "Ninguno"));
-
-        if (clipA_Reproducir != null)
+        
+        // 2. Control del Audio corregido
+        if (miAudioSource.isPlaying)
         {
-            AudioSource.PlayClipAtPoint(clipA_Reproducir, transform.position);
+            // Si ya estaba sonando, lo detenemos
+            miAudioSource.Stop();
+        }
+        else
+        {
+            // Comprobamos idioma
+            int idioma = PlayerPrefs.GetInt("IdiomaSeleccionado", 0);
+            AudioClip clipA_Reproducir = (idioma == 0) ? vozEspanol : vozIngles;
+
+            Debug.Log("Idioma: " + idioma + " | Reproduciendo: " + (clipA_Reproducir != null ? clipA_Reproducir.name : "Ninguno"));
+
+            if (clipA_Reproducir != null)
+            {
+                // Asignamos el clip al componente y lo reproducimos
+                miAudioSource.clip = clipA_Reproducir;
+                miAudioSource.Play();
+            }
         }
     }
 
