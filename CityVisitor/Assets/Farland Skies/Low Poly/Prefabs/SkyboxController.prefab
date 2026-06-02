@@ -24,14 +24,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8806667431029049813}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8806667431028794931}
   - {fileID: 8806667431028722399}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8806667431034490017
 MonoBehaviour:
@@ -46,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkyboxMaterial: {fileID: 2100000, guid: 4d0e0ffc7a6c1bf44b435e0b23260f8c, type: 2}
-  _topColor: {r: 0.2794118, g: 0.6421905, b: 1, a: 1}
-  _middleColor: {r: 1, g: 0.61764705, b: 0.9578093, a: 1}
+  _topColor: {r: 0.33490568, g: 0.6713651, b: 1, a: 1}
+  _middleColor: {r: 0.25698647, g: 0.5560299, b: 0.7264151, a: 1}
   _bottomColor: {r: 0.016868481, g: 0, b: 0.47794116, a: 1}
   _topExponent: 1
   _bottomExponent: 1
@@ -104,12 +105,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8806667431029080315}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.30070582, y: 0, z: 0, w: 0.95371693}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8806667431028842623}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
 --- !u!108 &8806667431035089771
 Light:
@@ -119,9 +121,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8806667431029080315}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 1
-  m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -171,8 +172,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!123 &8806667431033594291
 LensFlare:
   m_ObjectHideFlags: 0
@@ -214,12 +219,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8806667431029081071}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.000000048991197, y: 0.95371693, z: -0.30070582, w: -0.00000015538022}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8806667431028842623}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 35, y: 180, z: 0}
 --- !u!108 &8806667431035206103
 Light:
@@ -229,9 +235,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8806667431029081071}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 1
-  m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0
   m_Range: 10
@@ -281,8 +286,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!123 &8806667431033635799
 LensFlare:
   m_ObjectHideFlags: 0
