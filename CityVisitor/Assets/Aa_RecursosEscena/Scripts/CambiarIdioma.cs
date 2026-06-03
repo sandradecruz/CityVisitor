@@ -32,6 +32,11 @@ public class CambiarIdioma : MonoBehaviour
         {
             t.ActualizarIdioma();
         }
+        ControladorDialogoSimple dialogoPaginado = FindFirstObjectByType<ControladorDialogoSimple>();
+        if (dialogoPaginado != null)
+        {
+            dialogoPaginado.ActualizarIdioma();
+        }
     }
 
     void Start()
