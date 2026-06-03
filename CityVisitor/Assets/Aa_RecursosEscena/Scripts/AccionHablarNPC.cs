@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;    // Para detectar si mantienes pulsado el láser
+using UnityEngine.EventSystems;
 
 public class AccionHablarNPC : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public Image barraDeCarga; // Tu imagen con Fill Method: Horizontal
-    public GameObject canvasDialogo; // Arrastra aquí el objeto del Canvas de Diálogo
+    public Image barraDeCarga;
+    public GameObject canvasDialogo;
 
-    private float tiempoRequerido = 1.5f; // 1.5 segundos manteniendo
+    public float tiempoRequerido = 0.5f;
     private float tiempoActual = 0f;
     private bool estaPulsando = false;
 
