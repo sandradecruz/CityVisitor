@@ -3324,7 +3324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee37bd32b22ca5f4e99684d4c01297ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  botonA_Action: {fileID: -3599823989380923159, guid: b6d5c44ebe3244b7692e81ae8265eb22, type: 3}
+  botonA_Action: {fileID: -8883462604443205981, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   joystickIzquierdo_Action: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   videoPlayer: {fileID: 657974010}
   materialVideoSkybox: {fileID: 2100000, guid: 20dbbcec4e025d34d9bf8d185bed58a7, type: 2}
@@ -4462,7 +4462,7 @@ GameObject:
   - component: {fileID: 933949123}
   - component: {fileID: 933949122}
   - component: {fileID: 933949121}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6463,7 +6463,7 @@ GameObject:
   - component: {fileID: 1104553786}
   - component: {fileID: 1104553785}
   - component: {fileID: 1104553788}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7655,7 +7655,7 @@ GameObject:
   - component: {fileID: 1244460704}
   - component: {fileID: 1244460706}
   - component: {fileID: 1244460705}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10257,7 +10257,7 @@ GameObject:
   - component: {fileID: 1639047248}
   - component: {fileID: 1639047247}
   - component: {fileID: 1639047246}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

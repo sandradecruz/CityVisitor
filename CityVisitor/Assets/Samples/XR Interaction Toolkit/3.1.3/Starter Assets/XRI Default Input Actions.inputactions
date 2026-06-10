@@ -2137,6 +2137,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "BotonPausaVideo",
+                    "type": "Button",
+                    "id": "68e1fd13-fd56-4222-bf5a-14209229b3a8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -2456,6 +2465,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Boton B Meta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4652089d-1867-4dc5-a528-7f55c08adaf4",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BotonPausaVideo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
