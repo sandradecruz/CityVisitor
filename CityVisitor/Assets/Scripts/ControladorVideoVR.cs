@@ -1,20 +1,23 @@
 using UnityEngine;
 using UnityEngine.Video;
-using UnityEngine.XR; 
-using System.Collections.Generic;
+using UnityEngine.InputSystem; 
 
 public class ControladorVideoVR : MonoBehaviour
 {
+    [Header("Controles VR (Asignar en Inspector)")]
+    [Tooltip("Arrastra aquí la acción del Botón A (Ej: XRI RightHand Interaction/Primary Button)")]
+    public InputActionReference botonA_Action;
+    
+    [Tooltip("Arrastra aquí la acción del Joystick Izquierdo (Ej: XRI LeftHand Locomotion/Move)")]
+    public InputActionReference joystickIzquierdo_Action;
+
     [Header("Componentes de Video")]
     public VideoPlayer videoPlayer;
     public Material materialVideoSkybox;
 
     [Header("Objetos del Mundo Real")]
-    [Tooltip("Arrastra aquí el objeto padre de tu sala para ocultarla durante el video")]
     public GameObject habitacionMundoReal;
-    
-    [Tooltip("Arrastra aquí la esfera que el jugador toca para que desaparezca")]
-    public GameObject esferaActivadora; // <--- NUEVO
+    public GameObject esferaActivadora; 
 
     [Header("Movimiento y Físicas del Jugador")]
     public MonoBehaviour componenteMovimiento;
@@ -22,12 +25,46 @@ public class ControladorVideoVR : MonoBehaviour
 
     private Material skyboxOriginal;
     private bool estaReproduciendo = false;
-    private bool botonPresionadoEnFrameAnterior = false;
+    private bool estaPausadoManualmente = false;
 
     private Vector3 posicionInicialJugador;
     private Rigidbody rbJugador;
     private bool gravedadOriginal;
     private bool kinematicOriginal;
+
+    // Variables para controlar el retroceso fluido
+    private float temporizadorRetroceso = 0f;
+    private const float INTERVALO_RETROCESO = 0.01f; // Cada cuántos segundos reales se hace un salto hacia atrás
+    private const double TIEMPO_A_RETROCEDER = 1;   // Cuántos segundos de video se salta hacia atrás en cada intervalo
+
+   
+    private void OnEnable()
+    {
+        if (botonA_Action != null)
+        {
+            botonA_Action.action.Enable();
+            botonA_Action.action.performed += BotonAPulsado; 
+        }
+
+        if (joystickIzquierdo_Action != null)
+        {
+            joystickIzquierdo_Action.action.Enable();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (botonA_Action != null)
+        {
+            botonA_Action.action.performed -= BotonAPulsado;
+            botonA_Action.action.Disable();
+        }
+
+        if (joystickIzquierdo_Action != null)
+        {
+            joystickIzquierdo_Action.action.Disable();
+        }
+    }
 
     void Start()
     {
@@ -50,30 +87,91 @@ public class ControladorVideoVR : MonoBehaviour
             materialVideoSkybox.mainTexture = videoPlayer.texture;
         }
 
-        // BLOQUEO DE EJE Y: Mantiene la altura exacta del jugador
+        // Bloquea el eje Y del jugador
         if (jugador != null)
         {
             jugador.position = new Vector3(jugador.position.x, posicionInicialJugador.y, jugador.position.z);
         }
 
-        DetectarBotonAVR();
+        // Procesar Joystick solo si no está pausado
+        if (!estaPausadoManualmente)
+        {
+            ProcesarJoystick();
+        }
     }
 
-    void DetectarBotonAVR()
+    // cuando pulsas "A"
+    private void BotonAPulsado(InputAction.CallbackContext context)
     {
-        var dispositivosMandoDerecho = new List<InputDevice>();
-        InputDevices.GetDevicesWithCharacteristics(InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller, dispositivosMandoDerecho);
+        if (!estaReproduciendo) return;
 
-        if (dispositivosMandoDerecho.Count > 0)
+        if (videoPlayer.isPlaying && !estaPausadoManualmente)
         {
-            InputDevice mandoDerecho = dispositivosMandoDerecho[0];
-            if (mandoDerecho.TryGetFeatureValue(CommonUsages.primaryButton, out bool botonAPresionado))
+            videoPlayer.Pause();
+            estaPausadoManualmente = true;
+        }
+        else
+        {
+            videoPlayer.playbackSpeed = 1.0f;
+            videoPlayer.Play();
+            estaPausadoManualmente = false;
+        }
+    }
+
+    private void ProcesarJoystick()
+    {
+        if (joystickIzquierdo_Action == null) return;
+
+        
+        Vector2 joystickEje = joystickIzquierdo_Action.action.ReadValue<Vector2>();
+        float umbral = 0.4f;
+
+        // joystick izquierda -- Avanzar más rápido (1.5x)
+        if (joystickEje.x < -umbral) 
+        {
+            videoPlayer.playbackSpeed = 1.5f;
+            temporizadorRetroceso = 0f; 
+        }
+        // joystick derecha -- Retroceder a velocidad normal de forma limpia
+        else if (joystickEje.x > umbral) 
+        {
+            // Pausamos momentáneamente la reproducción normal para que no compita con el salto temporal
+            if (videoPlayer.isPlaying)
             {
-                if (botonAPresionado && !botonPresionadoEnFrameAnterior)
+                videoPlayer.Pause();
+            }
+
+            temporizadorRetroceso += Time.deltaTime;
+
+            // Cada vez que se cumple el intervalo, retrasamos el frame
+            if (temporizadorRetroceso >= INTERVALO_RETROCESO)
+            {
+                temporizadorRetroceso = 0f;
+
+                if (videoPlayer.time - TIEMPO_A_RETROCEDER > 0)
                 {
-                    CambiarPausa();
+                    videoPlayer.time -= TIEMPO_A_RETROCEDER;
                 }
-                botonPresionadoEnFrameAnterior = botonAPresionado;
+                else
+                {
+                    videoPlayer.time = 0;
+                }
+            }
+        }
+        // joystick centro -- Velocidad Normal
+        else 
+        {
+            temporizadorRetroceso = 0f;
+
+            // Si veníamos de retroceder, el video estará pausado, así que lo reanudamos
+            if (!videoPlayer.isPlaying)
+            {
+                videoPlayer.Play();
+            }
+
+            if (videoPlayer.playbackSpeed != 1.0f)
+            {
+                videoPlayer.playbackSpeed = 1.0f;
             }
         }
     }
@@ -81,6 +179,8 @@ public class ControladorVideoVR : MonoBehaviour
     public void ActivarVideoVR()
     {
         estaReproduciendo = true;
+        estaPausadoManualmente = false;
+        temporizadorRetroceso = 0f;
 
         if (jugador != null)
         {
@@ -96,35 +196,14 @@ public class ControladorVideoVR : MonoBehaviour
             }
         }
 
-        // 1. OCULTAMOS LA SALA Y LA ESFERA
-        if (habitacionMundoReal != null)
-        {
-            habitacionMundoReal.SetActive(false);
-        }
-        
-        if (esferaActivadora != null)
-        {
-            esferaActivadora.SetActive(false); // Apagamos la pelota
-        }
+        if (habitacionMundoReal != null) habitacionMundoReal.SetActive(false);
+        if (esferaActivadora != null) esferaActivadora.SetActive(false); 
+        if (componenteMovimiento != null) componenteMovimiento.enabled = false;
 
-        // 2. CONGELAMOS AL JUGADOR
-        if (componenteMovimiento != null)
-        {
-            componenteMovimiento.enabled = false;
-        }
-
-        // 3. ARRANCAMOS EL VIDEO
         RenderSettings.skybox = materialVideoSkybox;
         DynamicGI.UpdateEnvironment();
+        videoPlayer.playbackSpeed = 1.0f;
         videoPlayer.Play();
-    }
-
-    void CambiarPausa()
-    {
-        if (videoPlayer.isPlaying)
-            videoPlayer.Pause();
-        else
-            videoPlayer.Play();
     }
 
     void AlTerminarVideo(VideoPlayer vp)
@@ -135,40 +214,26 @@ public class ControladorVideoVR : MonoBehaviour
     void RegresarAlMundo()
     {
         estaReproduciendo = false;
+        estaPausadoManualmente = false;
         videoPlayer.Stop();
         materialVideoSkybox.mainTexture = null;
-
-        // 1. RESTAURAMOS EL CIELO
+        
         RenderSettings.skybox = skyboxOriginal;
         DynamicGI.UpdateEnvironment();
 
-        // 2. MOSTRAMOS LA SALA Y LA ESFERA DE NUEVO
-        if (habitacionMundoReal != null)
-        {
-            habitacionMundoReal.SetActive(true);
-        }
-        
-        if (esferaActivadora != null)
-        {
-            esferaActivadora.SetActive(true); // Encendemos la pelota
-        }
+        if (habitacionMundoReal != null) habitacionMundoReal.SetActive(true);
+        if (esferaActivadora != null) esferaActivadora.SetActive(true); 
 
-        // Restauramos físicas del jugador
         if (jugador != null)
         {
             jugador.position = posicionInicialJugador;
-
             if (rbJugador != null)
             {
                 rbJugador.useGravity = gravedadOriginal;
                 rbJugador.isKinematic = kinematicOriginal;
             }
         }
-
-        // 3. DESCONGELAMOS AL JUGADOR
-        if (componenteMovimiento != null)
-        {
-            componenteMovimiento.enabled = true;
-        }
+        
+        if (componenteMovimiento != null) componenteMovimiento.enabled = true;
     }
 }
