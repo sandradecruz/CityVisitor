@@ -11,6 +11,13 @@ public class AccionHablarNPC : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     private float tiempoActual = 0f;
     private bool estaPulsando = false;
 
+    void Awake()
+    {
+        if (canvasDialogo != null)
+        {
+            canvasDialogo.SetActive(false);
+        }
+    }
     void Update()
     {
         if (estaPulsando)
@@ -20,7 +27,7 @@ public class AccionHablarNPC : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
             if (tiempoActual >= tiempoRequerido)
             {
-                estaPulsando = false; // Evita bucles
+                estaPulsando = false; 
                 MostrarCanvas();
             }
         }
@@ -32,13 +39,11 @@ public class AccionHablarNPC : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         }
     }
 
-    // El láser del mando VR pulsa el botón
     public void OnPointerDown(PointerEventData eventData)
     {
         estaPulsando = true;
     }
 
-    // El jugador suelta el gatillo del mando VR
     public void OnPointerUp(PointerEventData eventData)
     {
         estaPulsando = false;
@@ -50,14 +55,12 @@ public class AccionHablarNPC : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         tiempoActual = 0f;
         if (barraDeCarga != null) barraDeCarga.fillAmount = 0f;
 
-        // Hace visible el recuadro de chat directamente
         if (canvasDialogo != null)
         {
             canvasDialogo.SetActive(true);
         }
     }
 
-    // Por seguridad, si el panel se apaga porque el jugador se aleja, reseteamos todo
     void OnDisable()
     {
         estaPulsando = false;
