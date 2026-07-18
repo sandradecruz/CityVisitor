@@ -77,5 +77,5 @@ Monumentos y puntos de interés incluidos en el recorrido:
 
 ## Autoría
 
-TFG realizado por **@Coloma35** **@sandradecruz**
+TFG realizado por **@Coloma33** **@sandradecruz**
 Repositorio: https://github.com/sandradecruz/CityVisitor
